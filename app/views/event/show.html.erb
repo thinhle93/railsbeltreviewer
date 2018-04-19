@@ -1,0 +1,64 @@
+<html>
+    <head>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+            <!-- Latest compiled and minified JavaScript -->
+            
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
+    </head>
+
+    <body>
+      
+        
+        <div style="display: inline-block; vertical-align: top; margin: 0 50px;">
+            <h3><%= @event.name %></h3>
+            <h4>Host: <%= @event.user.first_name %> <%= @event.user.last_name %></h4>
+            <h4>Date: <%= @date %></h4>
+            <h4>Location: <%= @event.city %>, <%= @event.state %></h4>
+            <h4>People who are joining the event: <%= @event.attendees.length %></h4>
+
+            <div style="width: 700px;">
+                <table class="table table-bordered">
+                    <tr >
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>State</th>
+                    </tr>
+                    <% @attendees.each do |i|%>
+                    <tr >
+                        <td><%=i.first_name%> <%=i.last_name%></td>
+                        <td><%=i.city%></td>
+                        <td><%=i.state%></td>
+                    </tr>
+                    <% end %>
+                </table>
+            </div>
+            
+        </div>
+        
+
+        <div style="display: inline-block">
+                <div style="text-align: right;">
+                        <a href="/users/find/<%= session[:userid] %>">Events Dashboard</a> <a href="/logout">Logout</a>
+                    </div>
+            <h4>Discussion about this event:</h4>
+            <div style="overflow: scroll; height: 200px; width: 500px;">
+                <% @comments.each do |i| %>
+                    <p><%= i.user.first_name %> says: <%=i.content%></p>
+                <% end %>
+            </div>
+            <% if flash[:errors]%>
+                <% flash[:errors].each do |err|%>
+                    <p><%= err%></p>
+                <%end%>
+            <%end%>
+            <p>Add a Comment:</p>
+            <form action="/event/newcomment" method="post">
+                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                <input type="hidden" name="userid" value="<%= session[:userid] %>">
+                <input type="hidden" name="eventid" value="<%= @event.id %>">
+                <textarea name="comment" id="" cols="30" rows="5"></textarea>
+                <input type="submit" value="Submit Comment">
+            </form>
+        </div>
+    </body>
+</html>
