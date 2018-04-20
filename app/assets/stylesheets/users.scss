@@ -1,10 +1,69 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.test{
-    color: blue;
+body{
+    background-image: url("https://images6.alphacoders.com/317/thumb-1920-317593.jpg");
+    
 }
-.label{
-    color: blue;
-    width: 340px;
+.wrapper{
+    padding: 50px;
+    color: white;
+}
+.registration label{
+    position: absolute;
+    
+}
+.registration input{
+    margin-left: 150px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.login label{
+    position: absolute;
+    
+}
+
+.login input {
+    margin-left: 100px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+select{
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.link{
+    color: white;
+}
+
+.newevent label{
+    position: absolute;
+}
+.newevent input{
+    margin-left: 100px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.comment{
+    
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.commentdis{
+    overflow: scroll; 
+    height: 200px; 
+    width: 500px;
+    
+    
+    border: 1px solid black;
+}
+
+.errors{
+    margin: 30px;
+    
+    background-color: red;
+    display: inline-block;
 }

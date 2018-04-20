@@ -10,7 +10,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
 </head>
 <body>
-        <a href="/logout">Logout</a> <a href="/users/edit/<%=@user.id%>">Edit My Profile</a>
+        <a class="link" href="/logout">Logout</a> <a class="link" href="/users/edit/<%=@user.id%>">Edit My Profile</a>
         <h3>Welcome <%= @user.first_name%>!</h3>
         
         <div style="width: 1000px;">
@@ -25,17 +25,17 @@
                 </tr>
                 <% @instate.each do |i|%>
                 <tr>
-                    <td><a href="/event/find/<%=i.id%>"><%= i.name%></a></td>
+                    <td><a class="link" href="/event/find/<%=i.id%>"><%= i.name%></a></td>
                     <td><%= i.date%></td>
                     <td><%= i.city%></td>
                     <td><%= i.user.first_name%></td>
                     <% if session[:userid] == i.user.id%>
-                            <td><a href="/event/edit/<%=i.id%>">Edit</a> <a href="/event/delete/<%=i.id%>">Delete</a></td>
+                            <td><a class="link" href="/event/edit/<%=i.id%>">Edit</a> <a class="link" href="/event/delete/<%=i.id%>">Delete</a></td>
                     <%else%>
                         <% unless i.attendee_ids.include? session[:userid]%>
-                            <td><a href="/event/join/<%=i.id%>">Join</a></td>
+                            <td><a class="link" href="/event/join/<%=i.id%>">Join</a></td>
                         <%else%>
-                            <td><span>Joining</span> <a href="/event/unjoin/<%=i.id%>">Cancel</a></td>
+                            <td><span>Joining</span> <a class="link" href="/event/unjoin/<%=i.id%>">Cancel</a></td>
                         <% end %>
                     <% end %>
                     </tr>
@@ -58,17 +58,17 @@
                     </tr>
                     <% @outstate.each do |i|%>
                     <tr>
-                        <td><a href="/event/find/<%=i.id%>"><%= i.name%></a></td>
+                        <td><a class="link" href="/event/find/<%=i.id%>"><%= i.name%></a></td>
                         <td><%= i.date%></td>
                         <td><%= i.state%></td>
                         <td><%= i.user.first_name%></td>
                         <% if session[:userid] == i.user.id%>
-                            <td><a href="/event/delete/<%=i.id%>">Delete</a></td>
+                            <td><a class="link" href="/event/delete/<%=i.id%>">Delete</a></td>
                         <%else%>
                             <% unless i.attendee_ids.include? session[:userid]%>
-                                <td><a href="/event/join/<%=i.id%>">Join</a></td>
+                                <td><a class="link" href="/event/join/<%=i.id%>">Join</a></td>
                             <%else%>
-                                <td><span>Joining</span> <a href="/event/unjoin/<%=i.id%>">Cancel</a></td>
+                                <td><span>Joining</span> <a class="link" href="/event/unjoin/<%=i.id%>">Cancel</a></td>
                             <% end %>
                         <% end %>
                         
@@ -80,13 +80,13 @@
         </div>
         
 
-
+<div class="newevent">
         <form action="/event/create/" method="post">
             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
             <input type="hidden" name="event[user_id]" value="<%=@user.id%>">
-            Name: <input type="text" name="event[name]"><br>
-            Date: <input type="date" name="event[date]"><br>
-            Location: <input type="text" name="event[city]"> 
+            <label for="">Name: </label><input type="text" name="event[name]"><br>
+            <label for="">Date: </label><input type="date" name="event[date]"><br>
+            <label for="">Location: </label><input type="text" name="event[city]"> 
             <select name="event[state]">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -142,12 +142,18 @@
         </select><br>
         <input type="submit" value="Add Event">
         </form>
-
+    
+</div>
+        
+<div class="errors">
         <% if flash[:errors]%>
         <% flash[:errors].each do |err|%>
-        <p><%= err%></p>
-        <%end%>
-        <%end%>
+        
+            <p><%= err%></p>
+            <%end%>
+            <%end%>
+        </div>
+        
         
     </body>
 </html>
